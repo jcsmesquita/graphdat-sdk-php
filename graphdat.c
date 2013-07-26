@@ -166,7 +166,7 @@ void setPlugins(TSRMLS_D)
       plugin->isAvailable = hasCake;
       plugin->getPath = getCakePath;
     }
-	  if(GRAPHDAT_GLOBALS(enable_yii))
+    if(GRAPHDAT_GLOBALS(enable_yii))
     {
       struct graphdat_plugin *plugin = &GRAPHDAT_GLOBALS(plugins).array[index++];
       plugin->isAvailable = hasYii;
