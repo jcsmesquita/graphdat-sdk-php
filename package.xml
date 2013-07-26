@@ -67,6 +67,8 @@
     <file role="src" name="timers.h"/>
     <file role="src" name="wordpress.c"/>
     <file role="src" name="wordpress.h"/>
+    <file role="src" name="yii.c"/>
+    <file role="src" name="yii.h"/>
     <file role="src" name="zendplugin.c"/>
     <file role="src" name="zendplugin.h"/>
    </dir> <!-- /src -->
