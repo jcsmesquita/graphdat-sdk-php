@@ -133,7 +133,7 @@ void setPlugins(TSRMLS_D)
       GRAPHDAT_GLOBALS(enable_magento) = 1; 
       GRAPHDAT_GLOBALS(enable_cakephp) = 1;
       GRAPHDAT_GLOBALS(enable_zend) = 1;
-	    GRAPHDAT_GLOBALS(enable_yii) = 1;
+      GRAPHDAT_GLOBALS(enable_yii) = 1;
       GRAPHDAT_GLOBALS(all_plugins_enabled) = 1;
     }
 
