@@ -41,6 +41,7 @@
 #include "joomla.h"
 //#include "wordpress.h"
 #include "cake.h"
+#include "yii.h"
 #include "zendplugin.h"
 
 // declare some helpers
@@ -107,6 +108,7 @@ PHP_INI_BEGIN()
     STD_PHP_INI_ENTRY("graphdat.enable_drupal", "false", PHP_INI_PERDIR|PHP_INI_SYSTEM, OnUpdateBool, enable_drupal, zend_graphdat_globals, graphdat_globals)
     STD_PHP_INI_ENTRY("graphdat.enable_magento", "false", PHP_INI_PERDIR|PHP_INI_SYSTEM, OnUpdateBool, enable_magento, zend_graphdat_globals, graphdat_globals)
     STD_PHP_INI_ENTRY("graphdat.enable_cakephp", "false", PHP_INI_PERDIR|PHP_INI_SYSTEM, OnUpdateBool, enable_cakephp, zend_graphdat_globals, graphdat_globals)
+    STD_PHP_INI_ENTRY("graphdat.enable_yii", "false", PHP_INI_PERDIR|PHP_INI_SYSTEM, OnUpdateBool, enable_yii, zend_graphdat_globals, graphdat_globals)
 PHP_INI_END()
 
 /*
@@ -123,7 +125,7 @@ void setPlugins(TSRMLS_D)
     // work out what plugins are needed
     if(!GRAPHDAT_GLOBALS(enable_joomla) && !GRAPHDAT_GLOBALS(enable_drupal) 
         && !GRAPHDAT_GLOBALS(enable_magento) && !GRAPHDAT_GLOBALS(enable_cakephp) 
-        && !GRAPHDAT_GLOBALS(enable_zend))
+        && !GRAPHDAT_GLOBALS(enable_zend) && !GRAPHDAT_GLOBALS(enable_yii))
     {
       // if none are enabled then we enable them all
       GRAPHDAT_GLOBALS(enable_joomla) = 1;
@@ -131,12 +133,13 @@ void setPlugins(TSRMLS_D)
       GRAPHDAT_GLOBALS(enable_magento) = 1; 
       GRAPHDAT_GLOBALS(enable_cakephp) = 1;
       GRAPHDAT_GLOBALS(enable_zend) = 1;
+	    GRAPHDAT_GLOBALS(enable_yii) = 1;
       GRAPHDAT_GLOBALS(all_plugins_enabled) = 1;
     }
 
     GRAPHDAT_GLOBALS(plugins).count = GRAPHDAT_GLOBALS(enable_joomla) + GRAPHDAT_GLOBALS(enable_drupal) 
                                       + GRAPHDAT_GLOBALS(enable_magento) + GRAPHDAT_GLOBALS(enable_cakephp)
-                                      + GRAPHDAT_GLOBALS(enable_zend);
+                                      + GRAPHDAT_GLOBALS(enable_zend) + GRAPHDAT_GLOBALS(enable_yii);
     GRAPHDAT_GLOBALS(plugins).array = malloc(sizeof(struct graphdat_plugin) * GRAPHDAT_GLOBALS(plugins).count);
     int index = 0;
     if(GRAPHDAT_GLOBALS(enable_joomla))
@@ -162,6 +165,12 @@ void setPlugins(TSRMLS_D)
       struct graphdat_plugin *plugin = &GRAPHDAT_GLOBALS(plugins).array[index++];
       plugin->isAvailable = hasCake;
       plugin->getPath = getCakePath;
+    }
+	  if(GRAPHDAT_GLOBALS(enable_yii))
+    {
+      struct graphdat_plugin *plugin = &GRAPHDAT_GLOBALS(plugins).array[index++];
+      plugin->isAvailable = hasYii;
+      plugin->getPath = getYiiPath;
     }
     if(GRAPHDAT_GLOBALS(enable_zend))
     {
