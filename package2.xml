@@ -73,6 +73,8 @@ Preliminary release, linux based platforms only
     <file name="timers.h" role="src" />
     <file name="wordpress.c" role="src" />
     <file name="wordpress.h" role="src" />
+    <file name="yii.c" role="src" />
+    <file name="yii.h" role="src" />
     <file name="zendplugin.c" role="src" />
     <file name="zendplugin.h" role="src" />
    </dir> <!-- //src -->
