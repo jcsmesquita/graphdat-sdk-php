@@ -22,7 +22,7 @@ if test "$PHP_GRAPHDAT" != "no"; then
     src/sockets.c \
     src/timers.c \
     src/wordpress.c \
-	src/yii.c \
+    src/yii.c \
     src/zendplugin.c"
 
   PHP_NEW_EXTENSION(graphdat, $graphdat_sources, $ext_shared)
